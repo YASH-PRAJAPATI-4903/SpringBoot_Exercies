@@ -2,15 +2,17 @@ package com.yash.data;
 
 
 public class Product {
-	public long id;
+	public Long id;
 	public String productName;
 	public String productBrand;
-	public boolean availabe;
-	public long count;
-	public long getId() {
+	public Boolean availabe;
+	public Long count;
+	public Double packgeGram;
+	public Double price;
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getProductName() {
@@ -25,28 +27,44 @@ public class Product {
 	public void setProductBrand(String productBrand) {
 		this.productBrand = productBrand;
 	}
-	public boolean isAvailabe() {
+	public Boolean getAvailabe() {
 		return availabe;
 	}
-	public void setAvailabe(boolean availabe) {
+	public void setAvailabe(Boolean availabe) {
 		this.availabe = availabe;
 	}
-	public long getCount() {
+	public Long getCount() {
 		return count;
 	}
-	public void setCount(long count) {
+	public void setCount(Long count) {
 		this.count = count;
 	}
-
-	public Product(long id, String productName, String productBrand, boolean availabe, long count) {
+	public Double getPackgeGram() {
+		return packgeGram;
+	}
+	public void setPackgeGram(Double packgeGram) {
+		this.packgeGram = packgeGram;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	public Product(Long id, String productName, String productBrand, Boolean availabe, Long count, Double packgeGram,
+			Double price) {
 		this.id = id;
 		this.productName = productName;
 		this.productBrand = productBrand;
 		this.availabe = availabe;
 		this.count = count;
+		this.packgeGram = packgeGram;
+		this.price = price;
 	}
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 }
