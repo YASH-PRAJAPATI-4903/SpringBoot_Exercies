@@ -33,6 +33,9 @@ public class productService {
 	
 	public String updateProd(long id, Product p) {
 		
+		if(!map.containsKey(id)) {
+			return null;
+		}
 		
 		map.replace(id, p);
 		map.get(id).setId(id);
