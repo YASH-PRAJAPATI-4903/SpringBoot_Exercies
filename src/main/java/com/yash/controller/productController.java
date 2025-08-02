@@ -62,9 +62,9 @@ public class productController {
 		return ResponseEntity.ok(temp);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateproduct(@PathVariable(name="id") Long id  , @RequestBody Product p){
+	public ResponseEntity<?> updateproduct(@PathVariable(name="id") Long id  , @RequestBody(required = false) Product p){
 		if(p==null) {
-			return ResponseEntity.ok("no content in given!!!");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Request body missing!!!");
 		}
 		String temp= prodSrervice.updateProd(id, p);
 		if(temp==null) {
