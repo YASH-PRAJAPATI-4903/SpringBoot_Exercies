@@ -1,19 +1,24 @@
 package com.yash.service;
 
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.yash.Repository.ProductRepository;
 import com.yash.data.Product;
 
 class ProductGeneratorTask implements Runnable {
     private final AtomicLong idCounter;
     private final int maxId;
-    private final Map<Long, Product> productList;
+    private final List<Product> productList;
 
-    public ProductGeneratorTask(AtomicLong idCounter, int maxId, Map<Long, Product> productList) {
+	private final ProductRepository productRepository;
+
+    public ProductGeneratorTask(AtomicLong idCounter, int maxId, List<Product> productList, ProductRepository productRepository1) {
         this.idCounter = idCounter;
         this.maxId = maxId;
         this.productList = productList;
+        this.productRepository = productRepository1;
+
     }
 
     @Override
@@ -24,12 +29,12 @@ class ProductGeneratorTask implements Runnable {
 
             Product product = new Product(currentId, "kurkure", "balaji", true, 33L, 50.60, 200.00);
 //            synchronized (productList) {
-            	if(productList.containsKey(currentId)) {
+            	if(productRepository.existsById(currentId)) {
 //        			return new RuntimeException().getMessage();
         			continue;
         		}
-            
-                productList.put(currentId, product); // thread-safe add
+
+               productRepository.save(product); // thread-safe add
 //            }
 
             System.out.println(Thread.currentThread().getName() + " created " + product);

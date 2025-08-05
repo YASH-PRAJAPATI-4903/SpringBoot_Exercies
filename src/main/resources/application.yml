@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: springboot_exercies
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    default-schema: public
+    change-log: classpath:db/changelog/changelog-master.xml
+
+jpa:
+  properties:
+    hibernate:
+      default_schema: public

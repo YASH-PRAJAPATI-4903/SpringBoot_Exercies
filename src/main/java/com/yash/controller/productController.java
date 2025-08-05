@@ -1,6 +1,7 @@
 package com.yash.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,10 @@ import com.yash.service.productService;
 
 @RestController
 public class productController {
-	
+
 	@Autowired
 	private productService prodSrervice;
-	
+
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllProduct(){
 		List<Product> prod = prodSrervice.getAllProduct();
@@ -31,14 +32,14 @@ public class productController {
 		}
 		return ResponseEntity.ok(prod);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getProdById(@PathVariable(name="id") Long id){
-		Product prod = prodSrervice.getById(id);
+		Optional<Product> prod = prodSrervice.getById(id);
 		if(prod==null) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
-		
+
 		return ResponseEntity.ok(prod);
 	}
 	@GetMapping("/")
@@ -49,13 +50,13 @@ public class productController {
 		}
 		return ResponseEntity.ok(prod);
 	}
-	
+
 	@PostMapping("/")
 	public ResponseEntity<?> createproduct(@RequestBody Product p){
 		if(p==null) {
 			return ResponseEntity.ok("no content in given!!!");
 		}
-		String temp= prodSrervice.createProd(p);
+		Product temp= prodSrervice.createProd(p);
 		if(temp==null) {
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Dublicate values accure!!");
 		}
@@ -66,7 +67,7 @@ public class productController {
 		if(p==null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Request body missing!!!");
 		}
-		String temp= prodSrervice.updateProd(id, p);
+		Product temp= prodSrervice.updateProd(id, p);
 		if(temp==null) {
 			return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
 		}
