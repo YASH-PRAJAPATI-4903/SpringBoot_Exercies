@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yash.data.Product;
-import com.yash.service.productService;
+import com.yash.service.ProductService;
 
 @RestController
-public class productController {
+public class ProductController {
 
 	@Autowired
-	private productService prodSrervice;
+	private ProductService prodSrervice;
 
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllProduct(){
@@ -36,7 +36,7 @@ public class productController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getProdById(@PathVariable(name="id") Long id){
 		Optional<Product> prod = prodSrervice.getById(id);
-		if(prod==null) {
+		if(!prod.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 

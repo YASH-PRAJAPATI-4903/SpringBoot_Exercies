@@ -27,10 +27,9 @@ class ProductGeneratorTask implements Runnable {
             long currentId = idCounter.getAndIncrement();
             if (currentId > maxId) break;
 
-            Product product = new Product(currentId, "kurkure", "balaji", true, 33L, 50.60, 200.00);
+            Product product = new Product("kurkure", "balaji", true, 33L, 50.60, 200.00);
 //            synchronized (productList) {
             	if(productRepository.existsById(currentId)) {
-//        			return new RuntimeException().getMessage();
         			continue;
         		}
 

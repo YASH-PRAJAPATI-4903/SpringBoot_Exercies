@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Product {
 	@Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
 
 	@Column(name = "product_name")
@@ -87,6 +87,17 @@ public class Product {
 		this.packgeGram = packgeGram;
 		this.price = price;
 	}
+
+	public Product( String name, String productBrand, Boolean availabe, Long count, Double packgeGram, Double price){
+		this.name = name;
+		this.productBrand = productBrand;
+		this.availabe = availabe;
+		this.count = count;
+		this.packgeGram = packgeGram;
+		this.price = price;
+	}
+
+
 
 	@Override
 	public String toString() {
