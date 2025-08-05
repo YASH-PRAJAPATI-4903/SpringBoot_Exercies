@@ -4,6 +4,7 @@ package com.yash.data;
 import jakarta.persistence.*;
 
 @Entity
+@Table(schema = "product")
 public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

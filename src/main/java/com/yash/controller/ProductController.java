@@ -44,7 +44,7 @@ public class ProductController {
 	}
 	@GetMapping("/")
 	public ResponseEntity<?> getProdByName(@RequestParam("name") String name){
-		List<Product> prod = prodSrervice.getByname(name);
+		List<Product> prod = prodSrervice.getByName(name);
 		if(prod.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
@@ -52,7 +52,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<?> createproduct(@RequestBody Product p){
+	public ResponseEntity<?> createProduct(@RequestBody Product p){
 		if(p==null) {
 			return ResponseEntity.ok("no content in given!!!");
 		}
@@ -63,7 +63,7 @@ public class ProductController {
 		return ResponseEntity.ok(temp);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateproduct(@PathVariable(name="id") Long id  , @RequestBody(required = false) Product p){
+	public ResponseEntity<?> updateProduct(@PathVariable(name="id") Long id  , @RequestBody(required = false) Product p){
 		if(p==null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Request body missing!!!");
 		}

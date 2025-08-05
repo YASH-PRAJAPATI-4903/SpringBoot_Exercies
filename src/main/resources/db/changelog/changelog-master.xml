@@ -5,7 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-	   <changeSet id="create-product-table" author="yash">
+    
+
+    <changeSet id="create-product-table" author="yash">
         <createTable tableName="product" schemaName="public">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -18,6 +20,14 @@
             <column name="price" type="DOUBLE"/>
         </createTable>
     </changeSet>
+
+    <include file="classpath:db/changelog/changelog-drop-product-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-product-schema.xml"/>
+    <include file="classpath:db/changelog/changelog-1.0-create-product-tables.xml"/>
+
+
+
+    
 
    <!-- <include file="db/changelog/changelog-1.0-create-product-tables.xml" relativeToChangelogFile="true"/> -->
 </databaseChangeLog>

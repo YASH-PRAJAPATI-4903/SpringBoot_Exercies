@@ -5,16 +5,16 @@
        http://www.liquibase.org/xml/ns/dbchangelog
        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="create-product-table" author="yash">
-        <createTable tableName="product">
-            <column name="id" type="LONG">
+    <changeSet id="create-product-table-schema-product" author="yash">
+        <createTable tableName="product" schemaName="product">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="productName" type="VARCHAR(255)"/>
-            <column name="productBrand" type="VARCHAR(255)"/>
+            <column name="product_name" type="VARCHAR(255)"/>
+            <column name="product_brand" type="VARCHAR(255)"/>
             <column name="availabe" type="BOOLEAN"/>
-            <column name="count" type="LONG"/>
-            <column name="packgeGram" type="DOUBLE"/>
+            <column name="count" type="BIGINT"/>
+            <column name="packge_gram" type="DOUBLE"/>
             <column name="price" type="DOUBLE"/>
         </createTable>
     </changeSet>

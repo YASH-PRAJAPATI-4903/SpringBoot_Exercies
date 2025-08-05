@@ -45,7 +45,7 @@ public class ProductService {
 		return productRepository.findById(id);
 	}
 
-	public List<Product> getByname(String name) {
+	public List<Product> getByName(String name) {
 
 		return productRepository.findByNameContaining(name);
 	}
