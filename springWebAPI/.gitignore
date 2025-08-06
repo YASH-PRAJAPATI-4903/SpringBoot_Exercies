@@ -1,15 +1,9 @@
 HELP.md
 .gradle
-springboot_exercies/.idea
-springWebAPI/.idea
-.idea
-build
+build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-springWebAPI/src/test/
-springboot_exercies/.mvn/
-springboot_exercies/src/test/
 
 ### STS ###
 .apt_generated
