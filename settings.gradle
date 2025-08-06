@@ -1,1 +1,4 @@
-rootProject.name='springboot_exercies'
+rootProject.name='springBootTask'
+
+include('springboot_exercies')
+include('springWebAPI')

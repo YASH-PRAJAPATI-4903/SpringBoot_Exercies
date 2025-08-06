@@ -1,0 +1,70 @@
+<!-- File: src/main/resources/static/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Phone Mock UI</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body onload="loadObjects()">
+<h2>Person Manager</h2>
+<form>
+    <input type="hidden" id="personid">
+    Name: <input type="text" id="name">
+    <div id="phoneBoxGroup">
+        <div id="phoneBox_1">
+            Phone: <input type="text" name="phone" id="phone" maxlength="12">
+            <a href="#" onclick="addMorePhone()">(+)</a>
+            <label id="removeLink_1"></label>
+        </div>
+    </div>
+    <input type="submit" value="Create" id="subButton" onclick="return methodCall()">
+</form>
+<div id="personFormResponse"></div>
+
+<script>
+    function loadObjects() {
+        $.get("/mock/findAll", function(data) {
+            let html = "<table border='1'><tr><th>Name</th><th>Numbers</th><th>Actions</th></tr>";
+            data.forEach(p => {
+                let options = p.numbers?.map(n => `<option>${n}</option>`).join("") || "";
+                html += `<tr><td>${p.name}</td><td><select>${options}</select></td>
+                    <td><a href='#' onclick='deleteObject(${p.id})'>Delete</a></td></tr>`;
+            });
+            html += "</table>";
+            $("#personFormResponse").html(html);
+        });
+    }
+
+    function methodCall() {
+        let name = $("#name").val();
+        let numbers = [];
+        $("input[name='phone']").each(function () {
+            if (this.value.trim()) numbers.push(this.value);
+        });
+        $.ajax({
+            url: "/mock/create",
+            method: "POST",
+            data: JSON.stringify({ name: name, numbers: numbers }),
+            contentType: "application/json",
+            success: function () {
+<!--                $("#name").val('');-->
+                loadObjects();
+            }
+        });
+        return false;
+    }
+
+    function addMorePhone() {
+        $("#phoneBoxGroup").append('<div>Phone: <input type="text" name="phone" maxlength="12"> <a href="#" onclick="removePhone(this)">(-)</a></div>');
+    }
+
+    function removePhone(link) {
+        $(link).parent().remove();
+    }
+
+    function deleteObject(id) {
+        $.post("/mock/remove/" + id, {}, loadObjects);
+    }
+</script>
+</body>
+</html>

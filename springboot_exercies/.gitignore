@@ -1,0 +1,35 @@
+HELP.md
+springboot_exercies/target/
+springboot_exercies/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+springboot_exercies/.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+springboot_exercies/.idea
+springboot_exercies/.gradle
+springboot_exercies/build
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+springboot_exercies/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
