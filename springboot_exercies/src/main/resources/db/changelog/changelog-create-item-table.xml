@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-item-table" author="yash">
+        <createTable tableName="item" schemaName="store">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_price" type="DOUBLE"/>
+            <column name="quantity" type="INT"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="merchant_store_id" type="INT"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="item"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_item_product"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="item"
+                                 baseColumnNames="merchant_store_id"
+                                 constraintName="fk_item_merchant_store"
+                                 referencedTableName="merchant_store"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.yash.Repository.ProductRepository;
-import com.yash.data.Product;
+import com.yash.entity.Product;
 
 class ProductGeneratorTask implements Runnable {
     private final AtomicLong idCounter;

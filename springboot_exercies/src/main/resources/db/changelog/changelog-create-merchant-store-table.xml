@@ -1,0 +1,26 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-merchant-store-table" author="yash">
+        <createTable tableName="merchant_store" schemaName="store">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="store_name" type="VARCHAR(255)"/>
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="merchant_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="merchant_store"
+                                 baseColumnNames="merchant_id"
+                                 constraintName="fk_merchant_merchant_store"
+                                 referencedTableName="merchant"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,41 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-product-table" author="yash">
+        <createTable tableName="product" schemaName="store">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_name" type="VARCHAR(255)"/>
+            <column name="product_brand" type="VARCHAR(255)"/>
+            <column name="available" type="BOOLEAN"/>
+            <column name="count" type="BIGINT"/>
+            <column name="package_gram" type="DOUBLE"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="alter-product-table" author="yash">
+        <dropColumn columnName="price"
+                    tableName="product" />
+        <dropColumn columnName="count"
+                    tableName="product" />
+        <dropColumn columnName="available"
+                    tableName="product" />
+        <dropColumn columnName="package_gram"
+                    tableName="product" />
+    </changeSet>
+    <changeSet id="add-sub-category-id-column-in-product-table" author="Yash">
+        <addColumn tableName="product" schemaName="store">
+            <column name="sub_category_id" type="INT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="product"
+                                 baseColumnNames="sub_category_id"
+                                 constraintName="fk_sub_category_product"
+                                 referencedTableName="sub_category"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

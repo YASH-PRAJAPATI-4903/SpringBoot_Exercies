@@ -10,10 +10,10 @@ spring:
 
   liquibase:
     enabled: true
-    default-schema: public
+    default-schema: store
     change-log: classpath:db/changelog/changelog-master.xml
 
 jpa:
   properties:
     hibernate:
-      default_schema: public
+      default_schema: store

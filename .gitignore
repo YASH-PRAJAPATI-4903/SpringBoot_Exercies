@@ -1,5 +1,7 @@
 HELP.md
+.gradle/8.5
 .gradle
+.gradle/buildOutputCleanup
 springboot_exercies/.idea
 springWebAPI/.idea
 .idea
@@ -24,10 +26,11 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+*.idea
 *.iws
 *.iml
 *.ipr
+*.gradle
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

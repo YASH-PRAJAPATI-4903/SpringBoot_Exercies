@@ -5,8 +5,8 @@
        http://www.liquibase.org/xml/ns/dbchangelog
        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="create-new-schema-product" author="Yash">
-        <sql>CREATE SCHEMA IF NOT EXISTS product</sql>
+    <changeSet id="create-new-schema-store" author="Yash">
+        <sql>CREATE SCHEMA IF NOT EXISTS store</sql>
     </changeSet>
 
 </databaseChangeLog>

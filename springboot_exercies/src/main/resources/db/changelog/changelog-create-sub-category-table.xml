@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-sub-category-table" author="yash">
+        <createTable tableName="sub_category" schemaName="store">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sub_category_name" type="VARCHAR(255)"/>
+            <column name="category_id" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="sub_category"
+                                 baseColumnNames="category_id"
+                                 constraintName="fk_category_sub_category"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

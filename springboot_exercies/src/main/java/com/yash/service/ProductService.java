@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yash.Repository.ProductRepository;
-import com.yash.data.Product;
+import com.yash.entity.Product;
 
 @Service
 public class ProductService {
@@ -30,13 +30,9 @@ public class ProductService {
 	public Product updateProd(long id, Product p) {
 
 		return productRepository.findById(id).map(ex->{
-			ex.setId(id);
-			ex.setName(p.getName());
-			ex.setProductBrand(p.getProductBrand());
-			ex.setAvailabe(p.getAvailabe());
-			ex.setCount(p.getCount());
-			ex.setPackgeGram(p.getPackgeGram());
-			ex.setPrice(p.getPrice());
+//			ex.setId(id);
+//			ex.setName(p.getName());
+//			ex.setProductBrand(p.getProductBrand());
 			return productRepository.save(ex);
 		}).orElseThrow(()->new  RuntimeException("Department not found!!!"));
 	}
