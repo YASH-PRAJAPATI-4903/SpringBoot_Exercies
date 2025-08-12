@@ -9,29 +9,21 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-@Table(name="merchant_store", schema = "store")
-public class MerchantStore {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "store_name")
-    private String storeName;
-    @Column(name = "is_active")
-    private boolean isActive;
-
-    private int merchantId;
+    @Column(name = "category_name")
+    private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "merchant_store_id")
-    private List<Item> itemList;
-
-
-
+    @JoinColumn(name = "category_id")
+    private List<SubCategory> subCategoryList;
 
 }

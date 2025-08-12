@@ -65,8 +65,11 @@ public class MerchantController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable(name = "id") int id){
-        merchantService.deleteByMerchantId(id);
-        return ResponseEntity.ok("delete merchant by given id!!!!");
+        String m=merchantService.deleteByMerchantId(id);
+        if(m==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(m);
     }
 
     @DeleteMapping("/store/{id}")

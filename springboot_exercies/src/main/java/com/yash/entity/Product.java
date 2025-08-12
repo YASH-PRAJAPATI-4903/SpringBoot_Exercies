@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +24,11 @@ public class Product {
 	private String name;
 	@Column(name = "product_brand")
 	private String productBrand;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	@JoinColumn(name = "product_id")
+	private List<Item> itemList;
+
 
 
 	public Product( String name, String productBrand, Boolean availabe, Long count, Double packgeGram, Double price){

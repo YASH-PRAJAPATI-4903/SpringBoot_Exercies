@@ -26,7 +26,7 @@ public class MerchantService{
     }
 
     public List<Merchant> getMerchantByName(String name){
-        return  merchantRepository.findByNameContaining(name);
+        return  merchantRepository.findByNameIgnoreCaseContaining(name);
     }
 
     public void createMerchant(MerchantWithStoreDTO merchantWithStoreDTO){
@@ -62,8 +62,12 @@ public class MerchantService{
 
     }
 
-    public void deleteByMerchantId(int id){
+    public String deleteByMerchantId(int id){
+        if(merchantRepository.findById(id).isEmpty()){
+            return null;
+        }
         merchantRepository.deleteById(id);
+        return "delete merchant by given id!!!!";
     }
 
     public String removeStore(int id){
