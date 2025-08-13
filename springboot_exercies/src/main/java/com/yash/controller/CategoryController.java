@@ -3,13 +3,18 @@ package com.yash.controller;
 import com.yash.Repository.CategoryRepository;
 import com.yash.dto.CategoryWithSubCategoryDTO;
 import com.yash.entity.Category;
+import com.yash.entity.MerchantStore;
+import com.yash.entity.SubCategory;
 import com.yash.service.CategoryService;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/category")
@@ -40,8 +45,17 @@ public class CategoryController {
         if(categoryWithSubCategoryDTO == null){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        categoryService.createCategory(categoryWithSubCategoryDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        Category category= categoryService.createCategory(categoryWithSubCategoryDTO);
+
+        HttpHeaders responceHeaders= new HttpHeaders();
+        responceHeaders.set("category-id", String.valueOf(category.getId()));
+        responceHeaders.set("sub-category-ids", String.valueOf(category.getSubCategoryList().stream().map(SubCategory::getId).collect(Collectors.toList())));
+        Cookie cookie= new Cookie("category-id", "cid=".concat( String.valueOf(category.getId())));
+        Cookie cookie1=new Cookie("sub-category-ids", cookie.getValue().concat(":scid=").concat(String.valueOf(category.getSubCategoryList().stream().map(SubCategory::getId).collect(Collectors.toList()))));
+
+        responceHeaders.set("set-cookie", cookie1.getValue());
+
+        return new ResponseEntity<>("new Category generated.", responceHeaders, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")

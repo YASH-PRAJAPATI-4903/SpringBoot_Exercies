@@ -9,5 +9,5 @@ import com.yash.entity.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-     List<Product> findByNameContaining(String name);
+     List<Product> findByNameIgnoreCaseContaining(String name);
 }

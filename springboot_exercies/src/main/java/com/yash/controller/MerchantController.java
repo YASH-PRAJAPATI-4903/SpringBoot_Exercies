@@ -3,14 +3,18 @@ package com.yash.controller;
 import com.yash.dto.MerchantDTO;
 import com.yash.dto.MerchantWithStoreDTO;
 import com.yash.entity.Merchant;
+import com.yash.entity.MerchantStore;
 import com.yash.service.MerchantService;
+import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Struct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/merchant")
@@ -44,11 +48,15 @@ public class MerchantController {
 
     @PostMapping("/")
     public ResponseEntity<String> createMerchant(@RequestBody MerchantWithStoreDTO merchantWithStoreDTO){
+
         if(merchantWithStoreDTO==null || merchantWithStoreDTO.getMerchantStores().isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        merchantService.createMerchant(merchantWithStoreDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        Merchant merchant= merchantService.createMerchant(merchantWithStoreDTO);
+        HttpHeaders responceHeaders= new HttpHeaders();
+        responceHeaders.set("merchant-id", String.valueOf(merchant.getId()));
+        responceHeaders.set("merchant-store-ids", String.valueOf(merchant.getMerchantStores().stream().map(MerchantStore::getId).collect(Collectors.toList())));
+        return new ResponseEntity<String>("Hello merchant", responceHeaders, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")

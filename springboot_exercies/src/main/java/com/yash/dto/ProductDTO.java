@@ -1,5 +1,6 @@
 package com.yash.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MerchantStoreDTO {
-    private String storeName;
-    private boolean isActive;
+public class ProductDTO {
+    private Long id;
+    private String name;
+    private String productBrand;
+    private SubCategoryDTO subCategoryDTO;
+
 }

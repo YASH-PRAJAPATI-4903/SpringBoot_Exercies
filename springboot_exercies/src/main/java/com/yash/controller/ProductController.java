@@ -36,7 +36,7 @@ public class ProductController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getProdById(@PathVariable(name="id") Long id){
 		Optional<Product> prod = prodSrervice.getById(id);
-		if(!prod.isPresent()) {
+		if(prod.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 
@@ -54,11 +54,11 @@ public class ProductController {
 	@PostMapping("/")
 	public ResponseEntity<?> createProduct(@RequestBody Product p){
 		if(p==null) {
-			return ResponseEntity.ok("no content in given!!!");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 		Product temp= prodSrervice.createProd(p);
 		if(temp==null) {
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Dublicate values accure!!");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Because No SubCategory exist by this id.");
 		}
 		return ResponseEntity.ok(temp);
 	}
@@ -69,10 +69,20 @@ public class ProductController {
 		}
 		Product temp= prodSrervice.updateProd(id, p);
 		if(temp==null) {
-			return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		return ResponseEntity.ok(temp);
 	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable(name = "id") Long id) {
+		String m = prodSrervice.deleteById(id);
+		if(m.isEmpty()){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		return ResponseEntity.ok(m);
+	}
+
 	@DeleteMapping("/")
 	public String deleteAll() {
 		prodSrervice.deleteAll();

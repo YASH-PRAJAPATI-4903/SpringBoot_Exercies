@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(schema = "product")
 public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +24,16 @@ public class Product {
 	@Column(name = "product_brand")
 	private String productBrand;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
-	@JoinColumn(name = "product_id")
+	@Column(name = "sub_category_id")
+	private int subCategoryID;
+
+	@OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Item> itemList;
 
-
-
-	public Product( String name, String productBrand, Boolean availabe, Long count, Double packgeGram, Double price){
+	public Product( String name, String productBrand){
 		this.name = name;
 		this.productBrand = productBrand;
 	}
-
-
 
 	@Override
 	public String toString() {

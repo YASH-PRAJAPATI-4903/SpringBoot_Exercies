@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MerchantStoreDTO {
+public class storeWithMerchant {
     private String storeName;
     private boolean isActive;
+    private MerchantDTO merchantDTO;
 }

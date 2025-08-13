@@ -28,17 +28,17 @@ public class CategoryService {
         return categoryRepository.findByNameIgnoreCaseContaining(name);
     }
 
-    public void createCategory(CategoryWithSubCategoryDTO categoryWithSubCategoryDTO){
+    public Category createCategory(CategoryWithSubCategoryDTO categoryWithSubCategoryDTO){
         Category category= new Category();
         List<SubCategory> saveSub = new ArrayList<>();
         category.setName(categoryWithSubCategoryDTO.getName());
         for (String s: categoryWithSubCategoryDTO.getSubName()){
             SubCategory subCategory= new SubCategory();
             subCategory.setName(s);
-            saveSub.add(subCategoryRepository.save(subCategory));
+            saveSub.add(subCategory);
         }
         category.setSubCategoryList(saveSub);
-        categoryRepository.save(category);
+        return categoryRepository.save(category);
     }
 
     public Category updateCategory(int id, CategoryWithSubCategoryDTO categoryWithSubCategoryDTO){
@@ -46,10 +46,35 @@ public class CategoryService {
             return null;
         }
         return categoryRepository.findById(id).map(ex->{
-            ex.setName(categoryWithSubCategoryDTO.getName());
+            if(categoryWithSubCategoryDTO.getName()!=null){
+                ex.setName(categoryWithSubCategoryDTO.getName());
+            }
+            if(categoryWithSubCategoryDTO.getSubName()!= null){
+                for(String i : categoryWithSubCategoryDTO.getSubName()) {
+                    SubCategory subCategory = new SubCategory();
+                    subCategory.setName(i);
+                    ex.getSubCategoryList().add(subCategoryRepository.save(subCategory));
+                }
+            }
             return categoryRepository.save(ex);
         }).get();
     }
+
+//    public Category addSubCategory(int id, SubCategory subCategory){
+//        if(!categoryRepository.existsById(id) ||  subCategory.getName().isEmpty()){
+//            return null;
+//        }
+////        if(subCategoryRepository.existsById(subCategory.getId())){
+////            return subCategoryRepository.findById(id).map(ex->{
+////                ex.setName(subCategory.getName());
+////                return subCategoryRepository.save(ex);
+////            }).get();
+////        }7
+//        return categoryRepository.findById(id).map(ex-> {
+//            ex.getSubCategoryList().add(subCategory);
+//            return categoryRepository.save(ex);
+//        }).get();
+//    }
 
     public String deleteCategoryByID(int id){
         if(categoryRepository.findById(id).isEmpty()){

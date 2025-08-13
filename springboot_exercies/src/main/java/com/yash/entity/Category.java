@@ -22,8 +22,7 @@ public class Category {
     @Column(name = "category_name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "category_id")
+    @OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubCategory> subCategoryList;
 
 }

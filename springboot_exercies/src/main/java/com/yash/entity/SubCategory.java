@@ -1,5 +1,6 @@
 package com.yash.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,11 @@ public class SubCategory {
     @Column(name = "sub_category_name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
-    @JoinColumn(name = "sub_category_id")
+    @Column(name = "category_id")
+    private int categoryId;
+
+    @OneToMany(mappedBy = "subCategoryID", cascade = CascadeType.ALL, orphanRemoval = false)
+//    @JsonIgnore
     private List<Product> productList;
 
 }

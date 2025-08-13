@@ -22,4 +22,10 @@ public class Item {
     @Column(name = "quantity")
     private Long quantity;
 
+    @Column(name = "merchant_store_id")
+    private int storeId;
+
+    @Column(name = "product_id")
+    private Long productId;
+
 }

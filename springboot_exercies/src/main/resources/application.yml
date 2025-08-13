@@ -17,3 +17,8 @@ jpa:
   properties:
     hibernate:
       default_schema: store
+
+
+#server:
+#  servlet:
+#    context-path: /show

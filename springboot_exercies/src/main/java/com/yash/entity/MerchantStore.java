@@ -1,5 +1,6 @@
 package com.yash.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,8 +28,8 @@ public class MerchantStore {
 
     private int merchantId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "merchant_store_id")
+    @OneToMany(mappedBy ="storeId",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Item> itemList;
 
 

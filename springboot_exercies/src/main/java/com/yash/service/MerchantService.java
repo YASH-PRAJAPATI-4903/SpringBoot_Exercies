@@ -10,7 +10,9 @@ import com.yash.entity.MerchantStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MerchantService{
@@ -29,20 +31,25 @@ public class MerchantService{
         return  merchantRepository.findByNameIgnoreCaseContaining(name);
     }
 
-    public void createMerchant(MerchantWithStoreDTO merchantWithStoreDTO){
+    public Merchant createMerchant(MerchantWithStoreDTO merchantWithStoreDTO){
         Merchant merchant = new Merchant();
+        List<MerchantStore> store = new ArrayList<>();
         merchant.setName(merchantWithStoreDTO.getMerchantDTO().getName());
         merchant.setMobile(merchantWithStoreDTO.getMerchantDTO().getMobile());
         merchant.setEmail(merchantWithStoreDTO.getMerchantDTO().getEmail());
-        Merchant savemerchant =merchantRepository.save(merchant);
 
+
+        Merchant savemerchant =merchantRepository.save(merchant);
         for (MerchantStoreDTO m: merchantWithStoreDTO.getMerchantStores()){
             MerchantStore merchantStore = new MerchantStore();
             merchantStore.setStoreName(m.getStoreName());
             merchantStore.setActive(m.isActive());
             merchantStore.setMerchantId(savemerchant.getId());
-            merchantStoreRepository.save(merchantStore);
+            store.add(merchantStoreRepository.save(merchantStore));
         }
+        savemerchant.setMerchantStores(store);
+
+        return savemerchant;
 
     }
     public boolean updateMerchant(int id, MerchantDTO merchantDTO){
@@ -71,9 +78,6 @@ public class MerchantService{
     }
 
     public String removeStore(int id){
-        if(merchantStoreRepository.findById(id).isEmpty()){
-            return null;
-        }
         merchantStoreRepository.deleteById(id);
         return "remove store by given id!!!!";
     }
