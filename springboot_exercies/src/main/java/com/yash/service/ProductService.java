@@ -7,16 +7,21 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.yash.Repository.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yash.Repository.ProductRepository;
-import com.yash.data.Product;
+import com.yash.entity.Product;
 
 @Service
 public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private SubCategoryRepository subCategoryRepository;
+
 	private Product product;
 
 	public List<Product> getAllProduct(){
@@ -24,21 +29,29 @@ public class ProductService {
 	}
 
 	public Product createProd(Product p) {
+		if(!subCategoryRepository.existsById(p.getSubCategoryID())){
+			return null;
+		}
 		return productRepository.save(p);
 	}
 
 	public Product updateProd(long id, Product p) {
 
+		if(!productRepository.existsById(id)){
+			return null;
+		}
+
 		return productRepository.findById(id).map(ex->{
-			ex.setId(id);
-			ex.setName(p.getName());
-			ex.setProductBrand(p.getProductBrand());
-			ex.setAvailabe(p.getAvailabe());
-			ex.setCount(p.getCount());
-			ex.setPackgeGram(p.getPackgeGram());
-			ex.setPrice(p.getPrice());
+//			ex.setId(id);
+
+			if(p.getName()!=null){
+				ex.setName(p.getName());
+			}
+			if(p.getProductBrand() != null) {
+				ex.setProductBrand(p.getProductBrand());
+			}
 			return productRepository.save(ex);
-		}).orElseThrow(()->new  RuntimeException("Department not found!!!"));
+		}).get();
 	}
 
 	public Optional<Product> getById(Long id) {
@@ -47,12 +60,21 @@ public class ProductService {
 
 	public List<Product> getByName(String name) {
 
-		return productRepository.findByNameContaining(name);
+		return productRepository.findByNameIgnoreCaseContaining(name);
+	}
+
+	public String deleteById(Long id){
+		if(!productRepository.existsById(id)){
+			return "";
+		}
+		productRepository.deleteById(id);
+		return "Products deleted by given id!!!";
 	}
 
 	public void deleteAll() {
 		productRepository.deleteAll();
 	}
+
 
 
 	public void AutoGenrateProduct(int totalProducts, Long counterStart) {

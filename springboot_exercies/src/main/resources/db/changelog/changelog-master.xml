@@ -5,25 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    
+<!--    <include file="classpath:db/changelog/changelog-create-product-schema.xml"/>-->
+    <include file="classpath:db/changelog/changelog-create-merchant-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-merchant-store-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-category-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-sub-category-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-product-table.xml"/>
+    <include file="classpath:db/changelog/changelog-create-item-table.xml"/>
 
-    <changeSet id="create-product-table" author="yash">
-        <createTable tableName="product" schemaName="public">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="product_name" type="VARCHAR(255)"/>
-            <column name="product_brand" type="VARCHAR(255)"/>
-            <column name="availabe" type="BOOLEAN"/>
-            <column name="count" type="BIGINT"/>
-            <column name="packge_gram" type="DOUBLE"/>
-            <column name="price" type="DOUBLE"/>
-        </createTable>
-    </changeSet>
-
-    <include file="classpath:db/changelog/changelog-drop-product-table.xml"/>
-    <include file="classpath:db/changelog/changelog-create-product-schema.xml"/>
-    <include file="classpath:db/changelog/changelog-1.0-create-product-tables.xml"/>
-
-   <!-- <include file="db/changelog/changelog-1.0-create-product-tables.xml" relativeToChangelogFile="true"/> -->
 </databaseChangeLog>

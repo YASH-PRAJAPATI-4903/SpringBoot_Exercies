@@ -2,9 +2,11 @@
 package com.example.mapping.controller;
 
 import com.example.mapping.dto.PersonDto;
+//import com.example.mapping.entity.MerchantStore;
 import com.example.mapping.entity.PersonInMemoryDB;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -20,6 +22,12 @@ public class PersonMockController {
     @GetMapping("/findAll")
     public List<PersonDto> findAll() {
         return PersonInMemoryDB.INSTANCE.findAll();
+    }
+
+    @GetMapping("/store/{id}")
+    public Object store(@PathVariable int id) {
+        WebClient webClient= WebClient.create("http://localhost:8080");
+        return webClient.get().uri("store/all/"+id).retrieve().bodyToMono(Object.class).block();
     }
 
     @GetMapping("/findById/{personid}")

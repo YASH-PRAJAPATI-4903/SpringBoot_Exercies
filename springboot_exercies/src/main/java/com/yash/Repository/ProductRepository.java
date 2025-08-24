@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.yash.data.Product;
+import com.yash.entity.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-     List<Product> findByNameContaining(String name);
+     List<Product> findByNameIgnoreCaseContaining(String name);
 }

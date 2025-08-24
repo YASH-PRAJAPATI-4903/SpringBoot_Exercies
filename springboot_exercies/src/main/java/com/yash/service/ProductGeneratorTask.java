@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.yash.Repository.ProductRepository;
-import com.yash.data.Product;
+import com.yash.entity.Product;
 
 class ProductGeneratorTask implements Runnable {
     private final AtomicLong idCounter;
@@ -27,7 +27,7 @@ class ProductGeneratorTask implements Runnable {
             long currentId = idCounter.getAndIncrement();
             if (currentId > maxId) break;
 
-            Product product = new Product("kurkure", "balaji", true, 33L, 50.60, 200.00);
+            Product product = new Product("kurkure", "balaji");
 //            synchronized (productList) {
             	if(productRepository.existsById(currentId)) {
         			continue;

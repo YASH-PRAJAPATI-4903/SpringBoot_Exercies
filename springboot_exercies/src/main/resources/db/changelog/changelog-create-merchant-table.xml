@@ -1,0 +1,18 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-merchant-table" author="yash">
+        <createTable tableName="merchant" schemaName="store">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="merchant_name" type="VARCHAR(255)"/>
+            <column name="merchant_mobile" type="VARCHAR(15)"/>
+            <column name="merchant_email" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

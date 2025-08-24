@@ -1,5 +1,5 @@
 HELP.md
-.gradle
+.gradle/
 springboot_exercies/.idea
 springWebAPI/.idea
 .idea
@@ -24,7 +24,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+*.idea
 *.iws
 *.iml
 *.ipr
